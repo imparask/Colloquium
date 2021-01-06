@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "448618390705",
+    "project_id": "colloquium-4d933",
+    "storage_bucket": "colloquium-4d933.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448618390705:android:5921e512c21e5f55686e90",
+        "android_client_info": {
+          "package_name": "com.application.colloquium"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448618390705-ec7klmjgpof87tuddmrhboq99q0ike5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.application.colloquium",
+            "certificate_hash": "53f62de2cd8b468024a0c298ec146f641404c89b"
+          }
+        },
+        {
+          "client_id": "448618390705-pfnu6rh4duimauarok95skditv3qqo3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-M4lvR5nDJXLaYbjqDjcLlyqCYPRAxzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448618390705-pfnu6rh4duimauarok95skditv3qqo3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
