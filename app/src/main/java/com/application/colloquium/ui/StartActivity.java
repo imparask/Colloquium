@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.application.colloquium.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -19,7 +21,16 @@ public class StartActivity extends AppCompatActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+                if(firebaseUser != null){
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+                else {
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                }
             }
         }, 1000L);
 

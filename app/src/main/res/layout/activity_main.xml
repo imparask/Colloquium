@@ -18,7 +18,26 @@
         android:src="@drawable/ic_baseline_add_24"
         android:contentDescription="Add"/>
 
+    <TextView
+        android:id="@+id/tv_noChats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:text="No Recent Chats"
+        android:textSize="35sp"
+        android:textColor="@color/black"
+        android:visibility="invisible"/>
+
+    <ProgressBar
+        android:id="@+id/pgb_Main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
     <ListView
+        android:id="@+id/lv_recentchats"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"

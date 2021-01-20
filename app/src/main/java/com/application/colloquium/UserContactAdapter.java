@@ -25,11 +25,6 @@ import java.util.ArrayList;
 
 public class UserContactAdapter extends ArrayAdapter<UserContacts> {
 
-    private static final String TAG = "UserContactAdapter" ;
-
-    private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-    private FirebaseAuth fAuth = FirebaseAuth.getInstance();
-    private DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
 
     public UserContactAdapter(Context context, ArrayList<UserContacts> userContacts) {
         super(context, 0, userContacts);

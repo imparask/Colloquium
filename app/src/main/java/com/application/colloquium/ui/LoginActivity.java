@@ -24,7 +24,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.concurrent.TimeUnit;
 
@@ -167,20 +170,41 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Login Successful !",Toast.LENGTH_SHORT).show();
                     pgbLoginActivity.setVisibility(View.INVISIBLE);
                     User user = new User(phoneNumber,fullname);
-                    fStore.collection("Users").document(fAuth.getUid()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    fStore.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task task) {
-                            if(task.isSuccessful()){
-                                Log.d(TAG,"User Profile Created for "+fullname);
-                                Toast.makeText(getApplicationContext(),"User profile created !",Toast.LENGTH_SHORT).show();
-                                ((UserClient)getApplicationContext()).setUser(user);
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult() != null) {
+                                    boolean phoneNumberExists = false;
+                                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                        String phone = documentSnapshot.getString("phoneNo");
+                                        if(phone.equals(phoneNumber)){
+                                            //Toast.makeText(getApplicationContext(),"User already exists..!",Toast.LENGTH_SHORT).show();
+                                            phoneNumberExists = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!phoneNumberExists){
+                                        fStore.collection("Users").document(fAuth.getUid()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task task) {
+                                                if(task.isSuccessful()){
+                                                    Log.d(TAG,"User Profile Created for "+fullname);
+                                                    Toast.makeText(getApplicationContext(),"User profile created !",Toast.LENGTH_SHORT).show();
+                                                    //((UserClient)getApplicationContext()).setUser(user);
+                                                }
+                                                else{
+                                                    Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                }
                             }
                         }
                     });
+
                 }
                 else{
                     pgbLoginActivity.setVisibility(View.INVISIBLE);
